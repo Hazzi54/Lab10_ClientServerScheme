@@ -6,6 +6,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <errno.h>
+#include <pthread.h>
 #include <sys/un.h>
 #include <sys/types.h>
 #include <sys/socket.h>
@@ -15,5 +16,6 @@
 #define BACKLOG 5
 
 void handle_error(char *);
+void *client();
 
 #endif
