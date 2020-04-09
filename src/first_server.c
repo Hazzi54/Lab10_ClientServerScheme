@@ -1,4 +1,4 @@
-#include "../func.h"
+#include "func.h"
 
 int main(int argc, char *argv[]) {
     int sock = socket(AF_UNIX, SOCK_STREAM, 0), size_addr = sizeof(struct sockaddr_un);

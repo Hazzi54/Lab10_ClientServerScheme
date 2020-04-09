@@ -1,4 +1,4 @@
-#include "../func.h"
+#include "func.h"
 
 #define NUM_THREADS 1024
 
