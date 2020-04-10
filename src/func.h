@@ -14,8 +14,8 @@
 #define SOCKNAME "/tmp/us_xfr"
 #define BUFSIZE 100
 #define BACKLOG 5
+#define NUM_THREADS 1024
 
 void handle_error(char *);
-void *client();
 
 #endif

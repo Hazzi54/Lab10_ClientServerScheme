@@ -1,6 +1,4 @@
-#include "func.h"
-
-#define NUM_THREADS 1024
+#include "func_client.h"
 
 int main(int argc, char *argv[]) {
     pthread_t id[NUM_THREADS];
