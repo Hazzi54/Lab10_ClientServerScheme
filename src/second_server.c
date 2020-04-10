@@ -19,11 +19,18 @@ int main(int argc, char *argv[]) {
     if(listen(sock, BACKLOG) == -1)
         handle_error("listen");
 
-    int new_sock, i = 0;
-    pthread_t id[NUM_THREADS];
+    int i = 0, cash = NUM_THREADS;
+    int *mas_sock = (int *)malloc(sizeof(int) * cash);
+    pthread_t *id = (pthread_t *)malloc(sizeof(pthread_t) * cash);
     while(1) {
-        new_sock = accept(sock, NULL, 0);
-        pthread_create(&id[i], NULL, server, (void *)&new_sock);
+        if(i >= cash) {
+            cash += NUM_THREADS;
+            id = (pthread_t *)realloc(id, sizeof(pthread_t) * cash);
+            mas_sock = (int *)realloc(mas_sock, sizeof(int) * cash);
+        }
+        mas_sock[i] = accept(sock, NULL, 0);
+        printf("Accepted %d\n", i);
+        pthread_create(&id[i], NULL, server, (void *)&mas_sock[i]);
         i++;
     }
 
