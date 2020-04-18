@@ -1,19 +1,18 @@
 #include "func_serv.h"
 
 int main(int argc, char *argv[]) {
-    int sock = socket(AF_UNIX, SOCK_STREAM, 0), size_addr = sizeof(struct sockaddr_un);
+    int sock = socket(AF_INET, SOCK_STREAM, 0), size_addr = sizeof(struct sockaddr_in);
+    struct sockaddr_in server_addr;
+
     if(sock == -1)
         handle_error("socket");
 
-    if(remove(SOCKNAME) == -1 && errno != ENOENT)
-        handle_error("remove");
-    
-    struct sockaddr_un my_addr;
-    memset(&my_addr, 0, size_addr);
-    my_addr.sun_family = AF_UNIX;
-    strncpy(my_addr.sun_path, SOCKNAME, sizeof(my_addr.sun_path));
+    server_addr.sin_family = AF_INET;
+    server_addr.sin_port = htons(PORT);
+    server_addr.sin_addr.s_addr = inet_addr(IP);
 
-    if(bind(sock, (struct sockaddr *) &my_addr, size_addr) == -1)        
+
+    if(bind(sock, (struct sockaddr *) &server_addr, size_addr) == -1)        
         handle_error("bind");
 
     if(listen(sock, BACKLOG) == -1)
