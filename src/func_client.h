@@ -3,6 +3,7 @@
 
 #include "func.h"
 
-void *client();
+void *client_udp();
+void *client_tcp();
 
 #endif

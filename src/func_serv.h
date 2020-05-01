@@ -3,6 +3,10 @@
 
 #include "func.h"
 
+#define SERVERS 5
+
 void *server(void *);
+void CloseAll(int **, int);
+void runServer(int, int);
 
 #endif

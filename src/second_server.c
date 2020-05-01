@@ -20,6 +20,7 @@ int main(int argc, char *argv[]) {
 
     int i = 0, cash = NUM_THREADS;
     int *mas_sock = (int *)malloc(sizeof(int) * cash);
+    char byte;
     pthread_t *id = (pthread_t *)malloc(sizeof(pthread_t) * cash);
     while(1) {
         if(i >= cash) {
@@ -29,7 +30,12 @@ int main(int argc, char *argv[]) {
         }
         mas_sock[i] = accept(sock, NULL, 0);
         printf("Accepted %d\n", i);
+
+        if(recv(mas_sock[i], &byte, sizeof(byte), 0) == -1)
+            handle_error("recv");
         pthread_create(&id[i], NULL, server, (void *)&mas_sock[i]);
+        if(byte == 'Q') 
+            break;
         i++;
     }
 
